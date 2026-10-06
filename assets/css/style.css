@@ -4815,3 +4815,215 @@ html[dir="rtl"] .map-label {
     animation: none;
   }
 }
+
+
+/* =========================================================
+   RESPONSIVE + HEADER FIXES
+   Load AFTER style.css and enhancements.css (nothing is edited in them)
+========================================================= */
+
+html { scroll-padding-top: 96px; }
+
+@media (min-width: 1600px) {
+    :root { --container: 1360px; }
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.site-header { padding-top: env(safe-area-inset-top, 0px); }
+
+.header-inner { gap: clamp(12px, 2.2vw, 30px); }
+
+.logo,
+.logo-text { min-width: 0; }
+
+.logo-mark { flex-shrink: 0; }
+.logo-mark img { width: 100%; height: 100%; object-fit: contain; }
+
+.desktop-nav { gap: clamp(14px, 2vw, 30px); }
+
+/* Dropdown now lines up with the profile button on wide screens too */
+.profile-dropdown {
+    right: max(24px, calc((100vw - var(--container)) / 2));
+}
+
+html[dir="rtl"] .profile-dropdown {
+    right: auto;
+    left: max(24px, calc((100vw - var(--container)) / 2));
+}
+
+/* Hamburger from 1000px (6 links + 3 buttons did not fit 900-1000px) */
+@media (max-width: 1000px) {
+    .desktop-nav { display: none; }
+    .menu-toggle { display: grid; }
+}
+
+/* Never leave the mobile menu showing on desktop */
+@media (min-width: 1001px) {
+    .mobile-nav { display: none !important; }
+}
+
+/* Long menus scroll instead of running off short screens */
+.mobile-nav {
+    max-height: calc(100dvh - 82px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.mobile-nav a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+}
+
+.mobile-nav a.active {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+@media (max-width: 650px) {
+
+    /* keep the RTL toggle reachable on phones */
+    .rtl-btn { display: grid; }
+
+    .header-actions { gap: 6px; }
+
+    .icon-btn,
+    .profile-btn,
+    .menu-toggle { width: 38px; height: 38px; }
+
+    .mobile-nav {
+        padding-inline: 16px;
+        max-height: calc(100dvh - 72px);
+    }
+
+    html[dir="rtl"] .profile-dropdown { left: 16px; right: 16px; }
+}
+
+@media (max-width: 380px) {
+
+    .logo-text small { display: none; }
+    .logo-mark { width: 36px; height: 36px; }
+    .logo-text strong { font-size: 14px; }
+
+    .header-actions { gap: 4px; }
+
+    .icon-btn,
+    .profile-btn,
+    .menu-toggle { width: 34px; height: 34px; }
+}
+
+@media (max-width: 340px) {
+    .rtl-btn { display: none; }
+}
+
+/* =========================================================
+   FLUID SPACING
+========================================================= */
+
+.section { padding-block: clamp(72px, 9vw, 125px); }
+.technology-section { padding-block: clamp(72px, 9vw, 120px); }
+
+/* =========================================================
+   HERO
+========================================================= */
+
+/* "the Surface." was never highlighted: .accent had no colour rule */
+.hero-content h1 .w.accent,
+.hero-content h1 .w.accent > span { color: var(--primary); }
+
+.trust-divider {
+    width: 1px;
+    height: 34px;
+    background: var(--border);
+}
+
+/* Floating cards were half cut off: .hero-image-wrap has overflow:hidden,
+   so negative offsets (-25px / -35px) pushed them outside and clipped them */
+.scan-card-top { left: 22px; top: 72px; }
+.scan-card-bottom { right: 22px; bottom: 30px; }
+.experience-badge { left: 22px; bottom: 22px; }
+
+html[dir="rtl"] .scan-card-top { left: auto; right: 22px; }
+html[dir="rtl"] .scan-card-bottom { right: auto; left: 22px; }
+html[dir="rtl"] .experience-badge { left: auto; right: 22px; }
+
+@media (max-width: 900px) {
+
+    .hero-visual { min-height: 0; }
+    .hero-image-wrap { height: clamp(400px, 62vw, 570px); }
+}
+
+@media (max-width: 820px) {
+
+    .quick-info { margin-top: 0; padding-top: 24px; }
+    .quick-info-grid { grid-template-columns: 1fr; }
+
+    .quick-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .quick-item:last-child { border-bottom: 0; }
+}
+
+@media (max-width: 650px) {
+
+    .trust-divider { display: none; }
+
+    .scan-card-top { left: 14px; top: 58px; }
+    .scan-card-bottom { right: 14px; bottom: 20px; }
+    .experience-badge { left: 14px; bottom: 14px; width: 96px; height: 96px; border-width: 6px; }
+
+    html[dir="rtl"] .scan-card-top { left: auto; right: 14px; }
+    html[dir="rtl"] .scan-card-bottom { right: auto; left: 14px; }
+    html[dir="rtl"] .experience-badge { left: auto; right: 14px; }
+}
+
+@media (max-width: 420px) {
+
+    /* stack the two cards so they never overlap the badge */
+    .scan-card-bottom { bottom: 124px; }
+}
+
+/* =========================================================
+   TECHNOLOGY / CTA / FOOTER
+========================================================= */
+
+.technology-image {
+    width: min(430px, 78vw);
+    height: auto;
+    aspect-ratio: 0.86;
+}
+
+.orbit-one { width: min(500px, 115vw); height: min(500px, 115vw); }
+.orbit-two { width: min(610px, 140vw); height: min(610px, 140vw); }
+
+@media (max-width: 900px) {
+
+    .cta-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 48px 36px;
+    }
+
+    .cta-icon { width: 130px; height: 130px; }
+    .cta-icon svg { width: 56px; height: 56px; }
+}
+
+@media (max-width: 650px) {
+
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-brand > p { max-width: 100%; }
+}
+
+/* =========================================================
+   MODAL (short screens / keyboards)
+========================================================= */
+
+.auth-modal {
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+}
